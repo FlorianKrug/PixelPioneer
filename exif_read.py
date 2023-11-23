@@ -5,7 +5,7 @@ import os
 def read_exif(dirPath):
     exif_tags = ['EXIF DateTimeOriginal','Image Model', 'Image Make', 'Image Artist', 'Image Copyright', 'Image GPSInfo', 'EXIF ExposureTime', 'EXIF FNumber', 'EXIF ISOSpeedRatings', 'EXIF FocalLength']
     exif = {'DateTimeOriginal':'','Image Model':"", 'Image Make':'', 'Image Artist':'', 'Image Copyright':'', 'Image GPSInfo':'', 'ExposureTime':'', 'FNumber':'', 'ISOSpeedRatings':'', 'FocalLength':''}
-    picture = open("static/" + dirPath, 'rb')
+    picture = open(dirPath, 'rb')
     tags = exifread.process_file(picture)
     for tag in tags.keys():
         if tag in exif_tags:
@@ -18,7 +18,7 @@ def read_exif(dirPath):
     return exif
 
 def write_metadata(dirPath, keywords):
-    info = iptcinfo3.IPTCInfo('static/' + dirPath)
+    info = iptcinfo3.IPTCInfo(dirPath)
     info['keywords'] = sorted(keywords)
     info.save(options=["overwrite"])
 
@@ -36,12 +36,12 @@ def search_metadata(keywords):
     endswith = ["cr2", "jpg", "jpeg", "tiff", "tif", "nef", "arw", "png", "gif", "webp"]
     picture_dates = []
     picture_keywords = []
-    for root, _, files in os.walk('static/'):
+    for root, _, files in os.walk(dirPath):
         for file in files:
             for keyword in keywords:
                 if file.split('.')[-1].lower() in endswith and file != ".DS_Store":
                     if keyword.lower() in read_metadata(root+"/"+file):
-                        newroot = root.replace("static/Bilder/", "")
+                        newroot = root.replace(dirPath, "")
                         if f"{newroot[0:4]}.{newroot[5:7]}.{newroot[8:10]}" not in picture_dates:
                             picture_dates.append(f"{newroot[0:4]}.{newroot[5:7]}.{newroot[8:10]}")
                             picture_keywords.append(sorted(read_metadata(root+"/"+file)))

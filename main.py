@@ -7,13 +7,21 @@ import logging
 iptcinfo_logger = logging.getLogger('iptcinfo')
 iptcinfo_logger.setLevel(logging.ERROR)
 
+dirPath = "/Users/floriankrug/Bilder/"
+
+
 @get('/<filename:re:.*\.css>')
 def stylesheets(filename):
     return static_file(filename, root='static/')
 
 @route('/<filename:path>')
 def send_static(filename):
-    return static_file(filename, root='static/')
+    print(filename)
+    if dirPath in f'/{filename}':
+        filename = f'/{filename}'
+        return static_file(filename.replace(dirPath, ''), root=dirPath)
+    else:
+        return static_file(filename, root='static/')
 
 @route('/')
 def home():
@@ -21,16 +29,17 @@ def home():
 
 @route('/sort')
 def sort_images():
-    folderstructure.sort('static/Bilder/')
-    sort_tags('static/Bilder/')
+    folderstructure.sort(dirPath)
+    sort_tags(dirPath)
     redirect('/')
+
 
 @route('/api/getPictureYears', method='POST')
 def getPicturesYears():
-    pictures = folderstructure.images('static/Bilder/')
+    pictures = folderstructure.images(dirPath)
     years = []
     for picture in pictures:
-        picture = str(picture).replace('static/Bilder/','')
+        picture = str(picture).replace(dirPath,'')
         try:
             int(picture[0:4])
             years.append(picture[0:4])
@@ -42,10 +51,10 @@ def getPicturesYears():
 @route('/api/getPicturesMonths', method='POST')
 def getPicturesMonths():
     data = request.json
-    pictures = folderstructure.images('static/Bilder/' + str(data['year']) + '/')
+    pictures = folderstructure.images(dirPath + str(data['year']) + '/')
     months = []
     for picture in pictures:
-        picture = str(picture).replace('static/Bilder/' + str(data['year']) + '/','')
+        picture = str(picture).replace(dirPath + str(data['year']) + '/','')
         if picture[0:2] not in months:
             months.append(picture[0:2])
     response.body = json.dumps({'months':months})
@@ -54,10 +63,10 @@ def getPicturesMonths():
 @route('/api/getPicturesDay', method='POST')
 def getPictures():
     values = request.json
-    pictures = folderstructure.images('static/Bilder/' + str(values['year']) + '/' + str(values['month']) + '/')
+    pictures = folderstructure.images(dirPath + str(values['year']) + '/' + str(values['month']) + '/')
     days = []
     for picture in pictures:
-        picture = str(picture).replace('static/Bilder/' + str(values['year']) + '/' + str(values['month']) + '/', '')
+        picture = str(picture).replace(dirPath + str(values['year']) + '/' + str(values['month']) + '/', '')
         days.append(picture[0:2])
     response.body = json.dumps({'days':days})
     return response
@@ -71,12 +80,12 @@ def write_tags():
         for keyword in keywords:
             keywords_str.append(keyword.encode('UTF-8'))
     write_metadata(data['src'], keywords)
-    folderstructure.delete_image_backup('static/Bilder/')
+    folderstructure.delete_image_backup(dirPath)
 
 @route('/api/tags_read', method='POST')
 def read_tags():
     data = request.json
-    keywords = sorted(read_metadata('static/' +  data['src']))
+    keywords = sorted(read_metadata(data['src']))#.replace('/pictures/', dirPath)))
     if keywords == 'no keywords':
         response.body = json.dumps({'keywords':[]})
         return response
@@ -93,16 +102,16 @@ def search_tags():
 
 @route('/api/sendData', method='POST')
 def receive_date():
-    global bilder
+    global pictures
     global dirPath
     date = request.json
     try:
         received_year = date['year']
         received_month = date['month']
         received_day = date['day']
-        dirPath = f'static/Bilder/{received_year}/{received_month}/{received_day}/'
-        bilder = folderstructure.images(dirPath)
-        response.body = json.dumps({'bilder':bilder})
+        dirPath_picture = f'{dirPath}{received_year}/{received_month}/{received_day}/'
+        pictures = folderstructure.images(dirPath_picture)
+        response.body = json.dumps({'bilder':pictures})
         return response
     except Exception as error:
         print('Error:', error)
@@ -132,8 +141,8 @@ def delete():
     folderstructure.delete_picture(picture['src'])
 
 if __name__ == '__main__':
-    bilder = []
-    folderstructure.sort('static/Bilder/')
-    sort_tags('static/Bilder/')
-    folderstructure.delete_image_backup('static/Bilder/')
+    pictures = []
+    folderstructure.sort(dirPath)
+    sort_tags(dirPath)
+    folderstructure.delete_image_backup(dirPath)
     run(debug=True, reloader=True)

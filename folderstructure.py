@@ -32,10 +32,7 @@ def images(dirPath):
     return images
 
 def delete_picture(dirPath):
-    if "static/" in dirPath:
-        os.remove(dirPath)
-    else:
-        os.remove('static/' + dirPath)
+    os.remove(dirPath)
 
 def move_files(img_exif, dirPath, picture):
     time = datetime.strptime(img_exif,'%Y:%m:%d %H:%M:%S')

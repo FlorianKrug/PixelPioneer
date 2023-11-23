@@ -470,7 +470,7 @@ const getImages = (selectedYear, selectedMonth, selectedDay) => {
             const imageList = updatedData['bilder']
             for(let i = 0; i < imageList.length; i++){
                 images += `<div class="images_gallery_item" onclick="show_image(this)">
-                <img class="thumbnail" src="${imageList[i].replace('static/', '')}" alt="${imageList[i].replace('static/', '')}">
+                <img class="thumbnail" src="${imageList[i]}" alt="${imageList[i]}">
                 </div>`
             };
             gallery.innerHTML = images;
