@@ -7,8 +7,6 @@ import logging
 iptcinfo_logger = logging.getLogger('iptcinfo')
 iptcinfo_logger.setLevel(logging.ERROR)
 
-dirPath = "/Users/floriankrug/Bilder/"
-
 
 @get('/<filename:re:.*\.css>')
 def stylesheets(filename):
@@ -16,7 +14,6 @@ def stylesheets(filename):
 
 @route('/<filename:path>')
 def send_static(filename):
-    print(filename)
     if dirPath in f'/{filename}':
         filename = f'/{filename}'
         return static_file(filename.replace(dirPath, ''), root=dirPath)
@@ -32,6 +29,23 @@ def sort_images():
     folderstructure.sort(dirPath)
     sort_tags(dirPath)
     redirect('/')
+
+@route('/dirPath')
+def change_dirPath():
+    global dirPath
+    return template('dirPath.tpl')
+
+@route('/setPath', method='POST')
+def upload():
+    global dirPath
+    data = request.json
+    if data['path'][-1] == '/':
+        dirPath = data['path']
+    else:
+        dirPath = data['path'] + '/'
+    with open('path.txt', 'w') as file:
+        file.write(dirPath)
+    
 
 
 @route('/api/getPictureYears', method='POST')
@@ -141,6 +155,8 @@ def delete():
     folderstructure.delete_picture(picture['src'])
 
 if __name__ == '__main__':
+    with open('path.txt', 'rb') as file:
+        dirPath = file.read().decode('UTF-8')
     pictures = []
     folderstructure.sort(dirPath)
     sort_tags(dirPath)

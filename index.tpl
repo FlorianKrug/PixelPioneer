@@ -74,6 +74,6 @@
             <input class="add_tags" type="text" id="tag" placeholder="Tags" onkeydown="add_tags(this)">
         </div>
     </div>
-    <script src="script.js"></script> <!--include JavaScript-->
+    <script src="script.js"></script> <!--include JavaScript -->
 </body>
 </html>

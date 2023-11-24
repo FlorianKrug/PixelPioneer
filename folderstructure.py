@@ -7,7 +7,7 @@ from exif_read import sort_tags
 def sort(dirPath):
     endswith = ["cr2", "jpg", "jpeg", "tiff", "tif", "nef", "arw", "png", "gif", "webp"]
     for picture in os.listdir(dirPath):
-        if os.path.isfile(dirPath + picture) and picture != ".DS_Store" and picture.split(".")[-1] in endswith: #.DS_Store only important for apple devices
+        if os.path.isfile(dirPath + picture) and picture != ".DS_Store" and picture.split(".")[-1].lower() in endswith: #.DS_Store only important for apple devices
             img = Image.open(dirPath + picture)
             try:
                 img_exif = img._getexif()[36867]
@@ -37,6 +37,8 @@ def delete_picture(dirPath):
 def move_files(img_exif, dirPath, picture):
     time = datetime.strptime(img_exif,'%Y:%m:%d %H:%M:%S')
     time.strftime('%a %d %b %Y, %I:%M%p')
+    if time.month < 10:
+        time.month = '0' + time.month
     if not os.path.exists(dirPath + str(time.year) + "/"): #create folder if year doesn't exist
         os.mkdir(dirPath + str(time.year))
     if not os.path.exists(dirPath + str(time.year) + "/" + str(time.month)): #create folder if month doesn't exist
@@ -48,5 +50,5 @@ def move_files(img_exif, dirPath, picture):
 def delete_image_backup(dirPath): #delete file with metadata backup
     for root, dirs, files in os.walk(dirPath):
         for file in files:
-            if file[-1] is "~":
+            if file[-1] == "~":
                 delete_picture(root + "/" + file)
