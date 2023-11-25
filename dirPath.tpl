@@ -12,7 +12,7 @@
 <body>
     <h1>Path to pictures</h1>
     <label for="folderInput">Select Folder:</label>
-    <input type="text" id="folderInput" placeholder="Enter folder path">
+    <input type="text" id="folderInput" value="{{dirPath}}" style="width: 300px;">
     <button onclick="getFolderPath()">Set Folder Path</button>
     <script src="path.js"></script>
 </body>

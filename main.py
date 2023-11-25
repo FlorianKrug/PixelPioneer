@@ -33,7 +33,7 @@ def sort_images():
 @route('/dirPath')
 def change_dirPath():
     global dirPath
-    return template('dirPath.tpl')
+    return template('dirPath.tpl', dirPath = dirPath)
 
 @route('/setPath', method='POST')
 def upload():
@@ -44,7 +44,7 @@ def upload():
     else:
         dirPath = data['path'] + '/'
     with open('path.txt', 'w') as file:
-        file.write(dirPath)
+        file.write(str(base64.standard_b64encode(bytes(dirPath, 'UTF-8'))))
     
 
 
@@ -156,7 +156,9 @@ def delete():
 
 if __name__ == '__main__':
     with open('path.txt', 'rb') as file:
-        dirPath = file.read().decode('UTF-8')
+        dirPath = file.read()
+        dirPath = base64.standard_b64decode(dirPath).decode('UTF-8')
+        print(dirPath)
     pictures = []
     folderstructure.sort(dirPath)
     sort_tags(dirPath)
