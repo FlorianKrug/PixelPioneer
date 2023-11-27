@@ -155,10 +155,15 @@ def delete():
     folderstructure.delete_picture(picture['src'])
 
 if __name__ == '__main__':
-    with open('path.txt', 'rb') as file:
-        dirPath = file.read()
-        dirPath = base64.standard_b64decode(dirPath).decode('UTF-8')
-        print(dirPath)
+    with open('path.txt', 'r') as file:
+        try:
+            lines = [line.rstrip('\n') for line in file.readlines()]        
+            dirPath = lines[0]
+            dirPath = base64.standard_b64decode(dirPath).decode('UTF-8').replace('\n', '')
+        except:
+            print('Please set your path first (./set_path.sh)')
+            exit()
+            
     pictures = []
     folderstructure.sort(dirPath)
     sort_tags(dirPath)
