@@ -11,7 +11,10 @@ Programm um seine Bilder schnell zu sortieren und anzuschauen. Bilder mit Schlag
 
 ## Installation
 
-Describe how to install your project here.
+Install the dependencies using '''pip install -r requirements.txt'''.
+After you install the dependencies, run the set_path.sh file. Please provide the complete path to your unsorted images.
+e.g.: '''/Users/user/Pictures/'''
+To check which path is set, option 2 is suitable
 
 ## Usage
 
