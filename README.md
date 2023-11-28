@@ -25,10 +25,6 @@ To see the images on a specific date, you can do this via the calendar. The year
 
 If you have tagged your images, you can search for them using the search bar. Simply enter your desired search term or search terms in the search bar and press Enter.
 
-## Contributing
-
-Explain how others can contribute to your project.
-
 ## License
 
 This project is licensed under the [Apache License] - see the [LICENSE.md](LICENSE.md) file for details.
