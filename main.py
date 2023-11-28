@@ -3,6 +3,8 @@ from bottle import *
 import folderstructure
 from exif_read import read_exif, write_metadata, read_metadata, search_metadata, sort_tags
 import logging
+import platform
+import getpass
 
 iptcinfo_logger = logging.getLogger('iptcinfo')
 iptcinfo_logger.setLevel(logging.ERROR)
@@ -44,7 +46,7 @@ def upload():
     else:
         dirPath = data['path'] + '/'
     with open('path.txt', 'w') as file:
-        file.write(str(base64.standard_b64encode(bytes(dirPath, 'UTF-8'))))
+        file.write(str(base64.standard_b64encode(bytes(dirPath, 'UTF-8')), 'UTF-8'))
     
 
 
@@ -154,15 +156,35 @@ def delete():
     picture = request.json
     folderstructure.delete_picture(picture['src'])
 
-if __name__ == '__main__':
+
+def check_for_path():
+    global dirPath
     with open('path.txt', 'r') as file:
         try:
             lines = [line.rstrip('\n') for line in file.readlines()]        
             dirPath = lines[0]
-            dirPath = base64.standard_b64decode(dirPath).decode('UTF-8').replace('\n', '')
+            if dirPath != '':
+                return True
         except:
-            print('Please set your path first (./set_path.sh)')
-            exit()
+            dirPath = platform.system()
+            user = getpass.getuser()
+            if dirPath == 'Darwin':
+                dirPath = f'/Users/{user}/Pictures/'
+            elif dirPath == 'Windows':
+                dirPath = 'C:\\Users\\' + user + '\\Pictures\\'
+            elif dirPath == 'Linux':
+                dirPath = f'/home/{user}/Pictures/'
+
+            with open('path.txt', 'w') as file:
+                file.write(str(base64.standard_b64encode(bytes(dirPath, 'UTF-8')), 'UTF-8'))
+            
+
+if __name__ == '__main__':
+    check_for_path()
+    with open('path.txt', 'r') as file:
+        lines = [line.rstrip('\n') for line in file.readlines()]        
+        dirPath = lines[0]
+        dirPath = base64.standard_b64decode(dirPath).decode('UTF-8').replace('\n', '')
             
     pictures = []
     folderstructure.sort(dirPath)
