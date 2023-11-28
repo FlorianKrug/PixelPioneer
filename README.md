@@ -6,7 +6,6 @@ Programm um seine Bilder schnell zu sortieren und anzuschauen. Bilder mit Schlag
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Installation
