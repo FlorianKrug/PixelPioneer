@@ -144,7 +144,7 @@ def getEXIF():
                                 'artist':exif_data['Image Artist'].title(), 
                                 'copyright':exif_data['Image Copyright'],
                                 'gps':exif_data['Image GPSInfo'],
-                                'exposoure':exif_data['ExposureTime'],
+                                'exposure':exif_data['ExposureTime'],
                                 'fnum':exif_data['FNumber'],
                                 'iso':exif_data['ISOSpeedRatings'],
                                 'focal_length':exif_data['FocalLength']

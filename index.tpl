@@ -16,11 +16,11 @@
                     <div class="date">
                         <div class="buttons">
                             <div class="year_dropdown">
-                                <button class="button_year">Jahr</button>
+                                <button class="button_year">Year</button>
                                 <div class="select_year"></div>
                             </div>
                             <div class="month_dropdown">
-                                <button class="button_month">Monat</button>
+                                <button class="button_month">Month</button>
                                 <div class="select_month"></div>
                             </div>
                         </div>
@@ -42,15 +42,15 @@
     <div id="search_bar"><input type="text" id="tag" placeholder="Mit Tags suchen..." onkeydown="search_tags(this)"><br><br></label></div> <!--searchbar for tags-->
     <div class="exif_data_container"> <!--display EXIF-data-->
         <table class="exif_data">
-            <tr><td>Aufnahmedatum:</td></tr>
-            <tr><td>Kamera:</td></tr>
+            <tr><td>Datetime:</td></tr>
+            <tr><td>Camera:</td></tr>
             <tr><td>Artist:</td></tr>
             <tr><td>Copyright:</td></tr>
             <tr><td>GPS Info:</td></tr>
-            <tr><td>Belichtungszeit:</td></tr>
-            <tr><td>Blende:</td></tr>
+            <tr><td>Exposure:</td></tr>
+            <tr><td>Aperture:</td></tr>
             <tr><td>ISO:</td></tr>
-            <tr><td>Brennweite:</td></tr>
+            <tr><td>Focal length:</td></tr>
         </table>
     </div>
     <div class="navbar"> <!--Toolbar with controle buttons-->

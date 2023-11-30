@@ -116,15 +116,16 @@ const getEXIF = () => {
         .then(updatedData => {
             const container = document.querySelector(".exif_data");
             let input = "";
-            input += `<tr><td>Aufnahmedatum: </td><td>${updatedData['datetime']}</td></tr>`;
-            input += `<tr><td>Kamera: </td><td>${updatedData['camera']}</td></tr>`;
+            console.log(updatedData['datetime'])
+            input += `<tr><td>Datetime: </td><td>${updatedData['datetime']}</td></tr>`;
+            input += `<tr><td>Camera: </td><td>${updatedData['camera']}</td></tr>`;
             input += `<tr><td>Artist:</td><td>${updatedData['artist']}</td></tr>`;
             input += `<tr><td>Copyright:</td><td>${updatedData['copyright']}</td></tr>`;
             input += `<tr><td>GPS Info:</td><td>${updatedData['gps']}</td></tr>`;
-            input += `<tr><td>Belichtungszeit:</td><td>${updatedData['exposoure']} sec</td></tr>`;
-            input += `<tr><td>Blende:</td><td>${updatedData['fnum']}</td></tr>`;
+            input += `<tr><td>Exposure:</td><td>${updatedData['exposure']} sec</td></tr>`;
+            input += `<tr><td>Aperture:</td><td>${updatedData['fnum']}</td></tr>`;
             input += `<tr><td>ISO:</td><td>${updatedData['iso']}</td></tr>`;
-            input += `<tr><td>Brennweite:</td><td>${updatedData['focal_length']} mm</td></tr>`;
+            input += `<tr><td>Focal length:</td><td>${updatedData['focal_length']} mm</td></tr>`;
             container.innerHTML = input;
         })
         .catch(error => {
