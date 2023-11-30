@@ -20,6 +20,8 @@ def sort(dirPath):
                 shutil.move(dirPath + picture, dirPath + "Fehler/")
             except SyntaxError as e:
                 print(e)
+            except:
+                print('Error while sorting pictures')
             
 
 def images(dirPath):
