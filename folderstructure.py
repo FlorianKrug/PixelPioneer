@@ -7,15 +7,19 @@ from exif_read import sort_tags
 def sort(dirPath):
     endswith = ["cr2", "jpg", "jpeg", "tiff", "tif", "nef", "arw", "png", "gif", "webp"]
     for picture in os.listdir(dirPath):
-        if os.path.isfile(dirPath + picture) and picture != ".DS_Store" and picture.split(".")[-1].lower() in endswith: #.DS_Store only important for apple devices
+        if not os.path.isfile(dirPath + picture):
+            continue
+        if picture.split(".")[-1].lower() in endswith:
             img = Image.open(dirPath + picture)
             try:
                 img_exif = img._getexif()[36867]
                 if img_exif is not None:
                     move_files(img_exif, dirPath, picture)
                     sort_tags(dirPath)
-            except:
+            except TypeError:
                 shutil.move(dirPath + picture, dirPath + "Fehler/")
+            except SyntaxError as e:
+                print(e)
             
 
 def images(dirPath):
@@ -23,8 +27,6 @@ def images(dirPath):
     endswith = ["cr2", "jpg", "jpeg", "tiff", "tif", "nef", "arw", "png", "gif", "webp"]
     for root, _, files in os.walk(dirPath):
         for file in files:
-            if file == ".DS_Store":
-                continue
             if "~" in file:
                 continue
             if file.split(".")[-1].lower() in endswith:

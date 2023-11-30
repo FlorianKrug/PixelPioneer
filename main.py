@@ -164,7 +164,7 @@ def check_for_path():
             lines = [line.rstrip('\n') for line in file.readlines()]        
             dirPath = lines[0]
             if dirPath != '':
-                return True
+                return dirPath
         except:
             dirPath = platform.system()
             user = getpass.getuser()
@@ -177,6 +177,7 @@ def check_for_path():
 
             with open('path.txt', 'w') as file:
                 file.write(str(base64.standard_b64encode(bytes(dirPath, 'UTF-8')), 'UTF-8'))
+    return dirPath
             
 
 if __name__ == '__main__':
@@ -184,8 +185,7 @@ if __name__ == '__main__':
     with open('path.txt', 'r') as file:
         lines = [line.rstrip('\n') for line in file.readlines()]        
         dirPath = lines[0]
-        dirPath = base64.standard_b64decode(dirPath).decode('UTF-8').replace('\n', '')
-            
+        dirPath = base64.standard_b64decode(dirPath).decode('UTF-8').replace('\n', '') 
     pictures = []
     folderstructure.sort(dirPath)
     sort_tags(dirPath)

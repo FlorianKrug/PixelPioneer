@@ -1,6 +1,7 @@
 import exifread
 import iptcinfo3
 import os
+import base64
 
 def read_exif(dirPath):
     exif_tags = ['EXIF DateTimeOriginal','Image Model', 'Image Make', 'Image Artist', 'Image Copyright', 'Image GPSInfo', 'EXIF ExposureTime', 'EXIF FNumber', 'EXIF ISOSpeedRatings', 'EXIF FocalLength']
@@ -33,6 +34,10 @@ def read_metadata(dirPath):
     return keywords
 
 def search_metadata(keywords):
+    with open('path.txt', 'r') as file:
+        lines = [line.rstrip('\n') for line in file.readlines()]        
+        dirPath = lines[0]
+        dirPath = base64.standard_b64decode(dirPath).decode('UTF-8').replace('\n', '')
     endswith = ["cr2", "jpg", "jpeg", "tiff", "tif", "nef", "arw", "png", "gif", "webp"]
     picture_dates = []
     picture_keywords = []
