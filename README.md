@@ -1,6 +1,6 @@
 # Bildverwaltungssystem
 
-Programm um seine Bilder schnell zu sortieren und anzuschauen. Bilder mit Schlagwörter versehen und nach ihnen suchen.
+Discover the ease of image management with this innovative program! With the user-friendly interface, you can effortlessly browse through your images, sort them quickly and add individual keywords. Finding the perfect snap has never been easier - just enter the keyword you want and voilà! Experience the freedom to organize your photos in seconds and navigate your visual memories with ease. Managing your image collection has never been easier - try it now and discover the world of effortless image organization! 
 
 ## Table of Contents
 
