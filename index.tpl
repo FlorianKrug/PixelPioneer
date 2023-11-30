@@ -39,7 +39,7 @@
                 </div>
             </div>      
     </div>
-    <div id="search_bar"><input type="text" id="tag" placeholder="Mit Tags suchen..." onkeydown="search_tags(this)"><br><br></label></div> <!--searchbar for tags-->
+    <div id="search_bar"><input type="text" id="tag" placeholder="Search with tags..." onkeydown="search_tags(this)"><br><br></label></div> <!--searchbar for tags-->
     <div class="exif_data_container"> <!--display EXIF-data-->
         <table class="exif_data">
             <tr><td>Datetime:</td></tr>
@@ -55,15 +55,15 @@
     </div>
     <div class="navbar"> <!--Toolbar with controle buttons-->
         <div>
-            <button type="button" class="buttons_nav back" title="Zurück zur Übersicht">&#8617</button>
-            <p><i class="arrow left" title="Bild zurück"></i></p>
-            <p><i class="arrow right" title="Bild weiter"></i></p>
+            <button type="button" class="buttons_nav back" title="Back to overview">&#8617</button>
+            <p><i class="arrow left" title="image back"></i></p>
+            <p><i class="arrow right" title="image further"></i></p>
         </div>
         <div>
             <div class="text">Diashow Timer in s:</div>
-            <input type="text" class="diashow_timer" style="width: 22px; height: 22px; margin: 5px;" title="Diashow Timer">
-            <i class="gg-play-button-r diashow" title="Diashow starten"></i>
-            <i class="fa fa-trash-o bin" style="font-size: 24px; height: 28px; margin: 3px;" title="Doppelklick zum Bild löschen"></i>
+            <input type="text" class="diashow_timer" style="width: 22px; height: 22px; margin: 5px;" title="diashow timer">
+            <i class="gg-play-button-r diashow" title="start diashow"></i>
+            <i class="fa fa-trash-o bin" style="font-size: 24px; height: 28px; margin: 3px;" title="souble click to delete image"></i>
         </div>
     </div>
     <div class="pictures"> <!--container for displaying image relevant stuff-->
