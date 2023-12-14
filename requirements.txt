@@ -1,4 +1,4 @@
-bottle == 0.12.25
-exifread == 3.0.0
-iptcinfo3 == 2.1.4
-pillow == 10.1.0
+bottle==0.12.25
+exifread==3.0.0
+iptcinfo3==2.1.4
+pillow==10.1.0
