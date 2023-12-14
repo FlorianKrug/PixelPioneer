@@ -17,7 +17,8 @@ def sort(dirPath):
                     move_files(img_exif, dirPath, picture)
                     sort_tags(dirPath)
             except TypeError:
-                shutil.move(dirPath + picture, dirPath + "Fehler/")
+                file_path = os.path.normpath(os.path.join(dirPath, 'Fehler/'))
+                shutil.move(dirPath + picture, file_path)
             except SyntaxError as e:
                 print(e)
             except:

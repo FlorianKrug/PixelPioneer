@@ -58,7 +58,8 @@ def sort_tags(dirPath):
     for root, _, files in os.walk(dirPath):
         for file in files:
             if os.path.isfile(root + "/" + file) and file != ".DS_Store" and file.split(".")[-1] in endswith:
-                    picture = iptcinfo3.IPTCInfo(root + "/" + file)
+                    file_path = os.path.normpath(os.path.join(root, file))
+                    picture = iptcinfo3.IPTCInfo(file_path)
                     info = picture ['keywords']
                     if info is []:
                         None
