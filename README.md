@@ -4,8 +4,8 @@ Discover the ease of image management with this innovative program! With the use
 
 ## Working on
 
-MacOS: &#10004
-Windows: &#10008
+MacOS: ✓
+Windows: x
 Linux: Testing
 
 ## Table of Contents
