@@ -21,8 +21,6 @@ def sort(dirPath):
                 shutil.move(dirPath + picture, file_path)
             except SyntaxError as e:
                 print(e)
-            except:
-                print('Error while sorting pictures')
             
 
 def images(dirPath):
@@ -41,16 +39,19 @@ def delete_picture(dirPath):
 
 def move_files(img_exif, dirPath, picture):
     time = datetime.strptime(img_exif,'%Y:%m:%d %H:%M:%S')
+    print(time.month)
     time.strftime('%a %d %b %Y, %I:%M%p')
     if time.month < 10:
-        time.month = '0' + time.month
+        month = '0' + str(time.month)
+    else:
+        month = time.month
     if not os.path.exists(dirPath + str(time.year) + "/"): #create folder if year doesn't exist
         os.mkdir(dirPath + str(time.year))
-    if not os.path.exists(dirPath + str(time.year) + "/" + str(time.month)): #create folder if month doesn't exist
-        os.mkdir(dirPath + str(time.year) + "/" + str(time.month))
-    if not os.path.exists(dirPath + str(time.year) + "/" + str(time.month) + "/" + str(time.day)): #create folder if day doesn't exist
-        os.mkdir(dirPath + str(time.year) + "/" + str(time.month) + "/" + str(time.day))
-    shutil.move(dirPath + picture , dirPath + str(time.year) + "/" + str(time.month) + "/" + str(time.day) + "/")
+    if not os.path.exists(dirPath + str(time.year) + "/" + month): #create folder if month doesn't exist
+        os.mkdir(dirPath + str(time.year) + "/" + month)
+    if not os.path.exists(dirPath + str(time.year) + "/" + month + "/" + str(time.day)): #create folder if day doesn't exist
+        os.mkdir(dirPath + str(time.year) + "/" + month + "/" + str(time.day))
+    shutil.move(dirPath + picture , dirPath + str(time.year) + "/" + month + "/" + str(time.day) + "/")
 
 def delete_image_backup(dirPath): #delete file with metadata backup
     for root, dirs, files in os.walk(dirPath):
