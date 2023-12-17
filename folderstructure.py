@@ -22,7 +22,7 @@ def sort(dirPath):
             except SyntaxError as e:
                 print(e)
             except KeyError as e:
-                print('This file has no DatetimeOriginal:', img)
+                print('This file has no DatetimeOriginal:', dirPath + picture)
                 print('Error:', e)
                 file_path = os.path.normpath(os.path.join(dirPath, 'Fehler/'))
                 shutil.move(dirPath + picture, file_path)
