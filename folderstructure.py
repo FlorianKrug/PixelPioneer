@@ -21,6 +21,11 @@ def sort(dirPath):
                 shutil.move(dirPath + picture, file_path)
             except SyntaxError as e:
                 print(e)
+            except KeyError as e:
+                print('This file has no DatetimeOriginal:', img)
+                print('Error:', e)
+                file_path = os.path.normpath(os.path.join(dirPath, 'Fehler/'))
+                shutil.move(dirPath + picture, file_path)
             
 
 def images(dirPath):
