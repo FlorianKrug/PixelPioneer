@@ -6,7 +6,7 @@ Discover the ease of image management with this innovative program! With the use
 
 MacOS: ✓
 Windows: x
-Linux: Testing
+Linux: ✓
 
 ## Table of Contents
 
